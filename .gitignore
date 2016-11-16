@@ -34,3 +34,7 @@ coverage.xml
 
 # Django stuff:
 *.log
+.idea/*
+webhook_cert.pem
+webhook_pkey.pem
+api_token
