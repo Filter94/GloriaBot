@@ -40,3 +40,4 @@ api_token
 *.crt
 *.pfx
 telegram_bot/*
+deploy.sh
