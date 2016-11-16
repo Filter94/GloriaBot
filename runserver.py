@@ -12,7 +12,7 @@ api_token_file = open('api_token', 'r')
 API_TOKEN = api_token_file.readline()
 api_token_file.close()
 
-WEBHOOK_HOST = 'http://uleychatgloria.azurewebsites.net/'
+WEBHOOK_HOST = 'uleychatgloria.azurewebsites.net'
 WEBHOOK_PORT = 8443  # 443, 80, 88 or 8443 (port need to be 'open')
 WEBHOOK_LISTEN = '10.0.0.4'  # In some VPS you may need to put here the IP addr
 
