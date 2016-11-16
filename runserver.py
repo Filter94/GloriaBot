@@ -71,13 +71,13 @@ def echo_message(message):
 
 bot.get_webhook_info()
 
-# # Remove webhook, it fails sometimes the set if there is a previous webhook
-# bot.remove_webhook()
-#
-#
-# # Set webhook
-# bot.set_webhook(url=WEBHOOK_URL_BASE+WEBHOOK_URL_PATH,
-#                 certificate=open(WEBHOOK_SSL_CERT, 'r'))
+# Remove webhook, it fails sometimes the set if there is a previous webhook
+bot.remove_webhook()
+
+
+# Set webhook
+bot.set_webhook(url=WEBHOOK_URL_BASE+WEBHOOK_URL_PATH,
+                certificate=open(WEBHOOK_SSL_CERT, 'r'))
 
 # Start flask server
 app.run(host=WEBHOOK_LISTEN,
