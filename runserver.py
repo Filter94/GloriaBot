@@ -71,7 +71,7 @@ def echo_message(message):
 
 bot.get_webhook_info()
 
-# Remove webhook, it fails sometimes the set if there is a previous webhook
+# Remove webhook, it fails sometimegus the set if there is a previous webhook
 bot.remove_webhook()
 
 
@@ -80,9 +80,8 @@ bot.set_webhook(url=WEBHOOK_URL_BASE+WEBHOOK_URL_PATH,
                 certificate=open(WEBHOOK_SSL_CERT, 'r'))
 
 
-def app_run():
-    # Start flask server
-    app.run(host=WEBHOOK_LISTEN,
-            port=WEBHOOK_PORT,
-            ssl_context=(WEBHOOK_SSL_CERT, WEBHOOK_SSL_PRIV),
-            debug=True)
+# Start flask server
+app.run(host=WEBHOOK_LISTEN,
+        port=WEBHOOK_PORT,
+        ssl_context=(WEBHOOK_SSL_CERT, WEBHOOK_SSL_PRIV),
+        debug=True)
