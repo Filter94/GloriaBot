@@ -12,7 +12,7 @@ api_token_file = open('api_token', 'r')
 API_TOKEN = api_token_file.readline()
 api_token_file.close()
 
-WEBHOOK_HOST = 'uleychatgloria.azurewebsites.net'
+WEBHOOK_HOST = 'uleychatgloria.eastus.cloudapp.azure.com'
 WEBHOOK_PORT = 8443  # 443, 80, 88 or 8443 (port need to be 'open')
 WEBHOOK_LISTEN = '0.0.0.0'  # In some VPS you may need to put here the IP addr
 
@@ -71,13 +71,13 @@ def echo_message(message):
 
 bot.get_webhook_info()
 
-# Remove webhook, it fails sometimes the set if there is a previous webhook
-bot.remove_webhook()
-
-
-# Set webhook
-bot.set_webhook(url=WEBHOOK_URL_BASE+WEBHOOK_URL_PATH,
-                certificate=open(WEBHOOK_SSL_CERT, 'r'))
+# # Remove webhook, it fails sometimes the set if there is a previous webhook
+# bot.remove_webhook()
+#
+#
+# # Set webhook
+# bot.set_webhook(url=WEBHOOK_URL_BASE+WEBHOOK_URL_PATH,
+#                 certificate=open(WEBHOOK_SSL_CERT, 'r'))
 
 # Start flask server
 app.run(host=WEBHOOK_LISTEN,
