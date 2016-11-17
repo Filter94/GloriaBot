@@ -62,7 +62,7 @@ def webhook():
 # Handle '/start' and '/help'
 @bot.message_handler(commands=['help', 'start'])
 def send_welcome(message):
-    bot.send_message(message, (u"Утро!"))
+    bot.reply_to(message, (u"Утро!"))
 
 
 # Handle all other messages
