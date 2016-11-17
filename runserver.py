@@ -38,14 +38,29 @@ bot = telebot.TeleBot(API_TOKEN, threaded=False)
 
 app = flask.Flask(__name__)
 
-# Remove webhook, it fails sometimes the set if there is a previous webhook
-bot.remove_webhook()
+@app.route(WEBHOOK_URL_PATH, methods=['POST'])
+def webhook():
+    if flask.request.headers.get('content-type') == 'application/json':
+        json_string = flask.request.get_data().encode('utf-8')
+        update = telebot.types.Update.de_json(json_string)
+        telebot.logger.debug(json_string)
+        bot.process_new_messages([update.message])
+        return ''
+    else:
+        flask.abort(403)
 
-# Set webhook
-bot.set_webhook(url=WEBHOOK_URL_BASE + WEBHOOK_URL_PATH,
-                certificate=open(WEBHOOK_SSL_CERT, 'r'))
+
+# Empty webserver index, return nothing, just http 200
+@app.route('/', methods=['GET', 'HEAD'])
+def index():
+    return ''
 
 if __name__ == '__main__':
+    # Remove webhook, it fails sometimes the set if there is a previous webhook
+    bot.remove_webhook()
+    # Set webhook
+    bot.set_webhook(url=WEBHOOK_URL_BASE + WEBHOOK_URL_PATH,
+                    certificate=open(WEBHOOK_SSL_CERT, 'r'))
     # Start flask server
     app.run(host=WEBHOOK_LISTEN,
             port=WEBHOOK_PORT,
