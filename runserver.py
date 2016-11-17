@@ -9,6 +9,7 @@ import telebot
 import logging
 
 logging.basicConfig(filename='loggers.log', level=logging.DEBUG)
+
 api_token_file = open('api_token', 'r')
 API_TOKEN = api_token_file.readline()
 api_token_file.close()
@@ -16,7 +17,6 @@ api_token_file.close()
 WEBHOOK_HOST = 'uleychatgloria.eastus.cloudapp.azure.com'
 WEBHOOK_PORT = 8443  # 443, 80, 88 or 8443 (port need to be 'open')
 WEBHOOK_LISTEN = '0.0.0.0'  # In some VPS you may need to put here the IP addr
-
 WEBHOOK_SSL_CERT = './webhook_cert.pem'  # Path to the ssl certificate
 WEBHOOK_SSL_PRIV = './webhook_pkey.pem'  # Path to the ssl private key
 
@@ -31,7 +31,6 @@ WEBHOOK_SSL_PRIV = './webhook_pkey.pem'  # Path to the ssl private key
 WEBHOOK_URL_BASE = "https://%s:%s" % (WEBHOOK_HOST, WEBHOOK_PORT)
 WEBHOOK_URL_PATH = "/%s/" % API_TOKEN
 
-
 logger = telebot.logger
 telebot.logger.setLevel(logging.INFO)
 
@@ -39,43 +38,11 @@ bot = telebot.TeleBot(API_TOKEN, threaded=False)
 
 app = flask.Flask(__name__)
 
-
-# Empty webserver index, return nothing, just http 200
-@app.route('/', methods=['GET', 'HEAD'])
-def index():
-    return ''
-
-
-# Process webhook calls
-@app.route(WEBHOOK_URL_PATH, methods=['POST'])
-def webhook():
-    if flask.request.headers.get('content-type') == 'application/json':
-        json_string = flask.request.get_data().encode('utf-8')
-        update = telebot.types.Update.de_json(json_string)
-        logger.debug(json_string)
-        bot.process_new_messages([update.message])
-        return ''
-    else:
-        flask.abort(403)
-
-
-# Handle '/start' and '/help'
-@bot.message_handler(commands=['help', 'start'])
-def send_welcome(message):
-    bot.reply_to(message, (u"Утро!"))
-
-
-# Handle all other messages
-@bot.message_handler(func=lambda message: False, content_types=['text'])
-def echo_message(message):
-    bot.send_message(message.chat.id, message.text)
-
-
 # Remove webhook, it fails sometimes the set if there is a previous webhook
 bot.remove_webhook()
 
 # Set webhook
-bot.set_webhook(url=WEBHOOK_URL_BASE+WEBHOOK_URL_PATH,
+bot.set_webhook(url=WEBHOOK_URL_BASE + WEBHOOK_URL_PATH,
                 certificate=open(WEBHOOK_SSL_CERT, 'r'))
 
 if __name__ == '__main__':
