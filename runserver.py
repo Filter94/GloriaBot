@@ -11,14 +11,13 @@ import logging
 api_token_file = open('api_token', 'r')
 API_TOKEN = api_token_file.readline()
 api_token_file.close()
-logging.basicConfig(filename='log.txt', level=logging.DEBUG)
 
-WEBHOOK_HOST = 'uleychatgloria.eastus.cloudapp.azure.com'
+WEBHOOK_HOST = 'uleychatgloria.azurewebsites.net'
 WEBHOOK_PORT = 8443  # 443, 80, 88 or 8443 (port need to be 'open')
 WEBHOOK_LISTEN = '0.0.0.0'  # In some VPS you may need to put here the IP addr
 
-WEBHOOK_SSL_CERT = 'webhook_cert.pem'  # Path to the ssl certificate
-WEBHOOK_SSL_PRIV = 'webhook_pkey.pem'  # Path to the ssl private key
+WEBHOOK_SSL_CERT = './webhook_cert.pem'  # Path to the ssl certificate
+WEBHOOK_SSL_PRIV = './webhook_pkey.pem'  # Path to the ssl private key
 
 # Quick'n'dirty SSL certificate generation:
 #
@@ -61,30 +60,24 @@ def webhook():
 # Handle '/start' and '/help'
 @bot.message_handler(commands=['help', 'start'])
 def send_welcome(message):
-    logger.log(message)
-    logger.log(message.text)
-    bot.reply_to(message, (u"Утро!"))
+    bot.reply_to(message, (u"Утро."))
 
 
 # Handle all other messages
 @bot.message_handler(func=lambda message: True, content_types=['text'])
 def echo_message(message):
-    logger.log(message)
-    logger.log(message.text)
     bot.reply_to(message, message.text)
 
-bot.get_webhook_info()
 
-# Remove webhook, it fails sometimegus the set if there is a previous webhook
+# Remove webhook, it fails sometimes the set if there is a previous webhook
 bot.remove_webhook()
-
 
 # Set webhook
 bot.set_webhook(url=WEBHOOK_URL_BASE+WEBHOOK_URL_PATH,
                 certificate=open(WEBHOOK_SSL_CERT, 'r'))
 
-if __name__ == '__main__':
-    app.run(host=WEBHOOK_LISTEN,
-            port=WEBHOOK_PORT,
-            ssl_context=(WEBHOOK_SSL_CERT, WEBHOOK_SSL_PRIV),
-            debug=True)
+# Start flask server
+app.run(host=WEBHOOK_LISTEN,
+        port=WEBHOOK_PORT,
+        ssl_context=(WEBHOOK_SSL_CERT, WEBHOOK_SSL_PRIV),
+        debug=True)
