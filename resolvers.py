@@ -71,4 +71,4 @@ def ban_resolver(message):
 
 
 def morning_resolver(message):
-    return resolve_regex_with_probability(ur'(?iu)(.{,3}прив.{,20})|(.{,3}утро.{,20})', 0.9, message.text)
+    return resolve_regex_with_probability(ur'(?iu)(.{,3}прив.{0,20})|(.{,3}утро.{0,20})', 0.9, message.text)
