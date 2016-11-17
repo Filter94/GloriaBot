@@ -4,12 +4,6 @@ from resolvers import kalinin_resolver, albert_resolver, tema_resolver, geva_res
     net_resolver, debug_resolver, zaebal_resolver, morning_resolver
 
 
-# Handle '/start' and '/help'
-@bot.message_handler(commands=['help', 'start'])
-def send_welcome(message):
-    bot.reply_to(message.chat.id, u"Утро.")
-
-
 @bot.message_handler(func=kalinin_resolver)
 def kalinin_pidor(message):
     bot.send_message(message.chat.id, u'Калинин пидор')

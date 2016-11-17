@@ -19,6 +19,12 @@ telebot.logger.setLevel(logging.INFO)
 app = flask.Flask(__name__)
 
 
+# Handle '/start' and '/help'
+@bot.message_handler(commands=['help', 'start'])
+def send_welcome(message):
+    bot.reply_to(message.chat.id, u"Утро.")
+
+
 @app.route(WEBHOOK_URL_PATH, methods=['POST'])
 def webhook():
     if flask.request.headers.get('content-type') == 'application/json':
