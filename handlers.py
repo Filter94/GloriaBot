@@ -1,7 +1,7 @@
 # coding=utf-8
 from bot import bot
 from resolvers import kalinin_resolver, albert_resolver, tema_resolver, geva_resolver, stas_resolver, ban_resolver, \
-    net_resolver, debug_resolver, zaebal_resolver, morning_resolver
+    net_resolver, debug_resolver, zaebal_resolver, morning_resolver, night_resolver
 
 
 @bot.message_handler(func=kalinin_resolver)
@@ -77,6 +77,11 @@ def zaebal(message):
 @bot.message_handler(func=morning_resolver)
 def morning(message):
     bot.send_message(message.chat.id, u'Утро.')
+
+
+@bot.message_handler(func=night_resolver)
+def night(message):
+    bot.send_message(message.chat.id, u'Ночи.')
 
 
 def init():
