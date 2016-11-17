@@ -51,6 +51,7 @@ def webhook():
     if flask.request.headers.get('content-type') == 'application/json':
         json_string = flask.request.get_data().encode('utf-8')
         update = telebot.types.Update.de_json(json_string)
+        print(json_string)
         bot.process_new_messages([update.message])
         return ''
     else:
@@ -75,6 +76,7 @@ bot.remove_webhook()
 # Set webhook
 bot.set_webhook(url=WEBHOOK_URL_BASE+WEBHOOK_URL_PATH,
                 certificate=open(WEBHOOK_SSL_CERT, 'r'))
+
 if __name__ == '__main__':
     # Start flask server
     app.run(host=WEBHOOK_LISTEN,
