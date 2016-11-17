@@ -636,18 +636,19 @@ class TeleBot:
 
     def _notify_message_subscribers(self, new_messages):
         for message in new_messages:
-            if not message.reply_to_message:
-                continue
+            if message is not None:
+                if not message.reply_to_message:
+                    continue
 
-            reply_msg_id = message.reply_to_message.message_id
-            if reply_msg_id in self.message_subscribers_messages:
-                index = self.message_subscribers_messages.index(reply_msg_id)
-                self.message_subscribers_callbacks[index](message)
-
-                with self.message_subscribers_lock:
+                reply_msg_id = message.reply_to_message.message_id
+                if reply_msg_id in self.message_subscribers_messages:
                     index = self.message_subscribers_messages.index(reply_msg_id)
-                    del self.message_subscribers_messages[index]
-                    del self.message_subscribers_callbacks[index]
+                    self.message_subscribers_callbacks[index](message)
+
+                    with self.message_subscribers_lock:
+                        index = self.message_subscribers_messages.index(reply_msg_id)
+                        del self.message_subscribers_messages[index]
+                        del self.message_subscribers_callbacks[index]
 
     def register_next_step_handler(self, message, callback):
         """
@@ -664,12 +665,13 @@ class TeleBot:
 
     def _notify_message_next_handler(self, new_messages):
         for message in new_messages:
-            chat_id = message.chat.id
-            if chat_id in self.message_subscribers_next_step:
-                handlers = self.message_subscribers_next_step[chat_id]
-                for handler in handlers:
-                    self._exec_task(handler, message)
-                self.message_subscribers_next_step.pop(chat_id, None)
+            if message is not None:
+                chat_id = message.chat.id
+                if chat_id in self.message_subscribers_next_step:
+                    handlers = self.message_subscribers_next_step[chat_id]
+                    for handler in handlers:
+                        self._exec_task(handler, message)
+                    self.message_subscribers_next_step.pop(chat_id, None)
 
     def _append_pre_next_step_handler(self):
         for k in self.pre_message_subscribers_next_step.keys():
@@ -803,10 +805,11 @@ class TeleBot:
 
     def _notify_command_handlers(self, handlers, new_messages):
         for message in new_messages:
-            for message_handler in handlers:
-                if self._test_message_handler(message_handler, message):
-                    self._exec_task(message_handler['function'], message)
-                    break
+            if message is not None:
+                for message_handler in handlers:
+                    if self._test_message_handler(message_handler, message):
+                        self._exec_task(message_handler['function'], message)
+                        break
 
 
 class AsyncTeleBot(TeleBot):
