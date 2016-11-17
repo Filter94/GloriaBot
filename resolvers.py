@@ -2,7 +2,6 @@
 import random
 import re
 
-SECOND_STAGE = 'second_stage'
 ZAEBAL = 7
 TIMES_WROTE = 'times_wrote'
 LAST_USER_ID = 'last_user_id'
@@ -24,7 +23,7 @@ def zaebal_resolver(message):
     if re.match(ur'.*', message.text) is not None:
         chat_id = message.chat.id
         user_id = message.from_user.id
-        chat_last_msgs_by_user = last_10_by_chats.get(chat_id, {LAST_USER_ID: None, TIMES_WROTE: None})
+        chat_last_msgs_by_user = last_10_by_chats.get(chat_id, {LAST_USER_ID: None, TIMES_WROTE: None, })
         if chat_last_msgs_by_user[LAST_USER_ID] != user_id:
             chat_last_msgs_by_user[LAST_USER_ID] = user_id
             chat_last_msgs_by_user[TIMES_WROTE] = 1
@@ -75,6 +74,6 @@ def morning_resolver(message):
 
 
 def night_resolver(message):
-    return resolve_regex_with_probability(ur'(?iu)(.{0,6}ночи.{0,20}))', 0.9, message.text)
+    return resolve_regex_with_probability(ur'(?iu).{0,6}ночи.{0,20}', 0.9, message.text)
 
 
