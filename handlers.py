@@ -1,7 +1,7 @@
 # coding=utf-8
+from bot import bot
 from resolvers import kalinin_resolver, albert_resolver, tema_resolver, geva_resolver, stas_resolver, ban_resolver, \
     net_resolver, debug_resolver, zaebal_resolver, morning_resolver
-from runserver import bot
 
 
 # Handle '/start' and '/help'
@@ -83,3 +83,7 @@ def zaebal(message):
 @bot.message_handler(func=morning_resolver)
 def morning(message):
     bot.send_message(message.chat.id, u'Утро.')
+
+
+def init():
+    pass
