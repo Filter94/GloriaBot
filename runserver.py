@@ -11,6 +11,7 @@ import logging
 api_token_file = open('api_token', 'r')
 API_TOKEN = api_token_file.readline()
 api_token_file.close()
+logging.basicConfig(filename='log.txt', level=logging.DEBUG)
 
 WEBHOOK_HOST = 'uleychatgloria.eastus.cloudapp.azure.com'
 WEBHOOK_PORT = 8443  # 443, 80, 88 or 8443 (port need to be 'open')
@@ -60,6 +61,8 @@ def webhook():
 # Handle '/start' and '/help'
 @bot.message_handler(commands=['help', 'start'])
 def send_welcome(message):
+    logger.log(message)
+    logger.log(message.text)
     bot.reply_to(message, (u"Утро!"))
 
 
@@ -67,6 +70,7 @@ def send_welcome(message):
 @bot.message_handler(func=lambda message: True, content_types=['text'])
 def echo_message(message):
     logger.log(message)
+    logger.log(message.text)
     bot.reply_to(message, message.text)
 
 bot.get_webhook_info()
