@@ -8,6 +8,7 @@ import flask
 import telebot
 import logging
 
+logging.basicConfig(filename='loggers.log', level=logging.DEBUG)
 api_token_file = open('api_token', 'r')
 API_TOKEN = api_token_file.readline()
 api_token_file.close()
@@ -51,7 +52,7 @@ def webhook():
     if flask.request.headers.get('content-type') == 'application/json':
         json_string = flask.request.get_data().encode('utf-8')
         update = telebot.types.Update.de_json(json_string)
-        print(json_string)
+        logger.debug(json_string)
         bot.process_new_messages([update.message])
         return ''
     else:
