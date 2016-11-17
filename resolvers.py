@@ -14,7 +14,7 @@ def true_with_probability(probability):
 
 
 def resolve_regex_with_probability(regex, probability, message):
-    if re.match(regex, message.text) is not None:
+    if re.match(regex, message) is not None:
         return true_with_probability(probability)
     else:
         return False
