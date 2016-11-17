@@ -178,8 +178,8 @@ class Chat(JsonDeserializable):
     @classmethod
     def de_json(cls, json_string):
         obj = cls.check_json(json_string)
-        id = obj['id']
-        type = obj['type']
+        id = obj.get('id')
+        type = obj.get('type')
         title = obj.get('title')
         username = obj.get('username')
         first_name = obj.get('first_name')

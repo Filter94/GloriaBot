@@ -60,13 +60,13 @@ def webhook():
 # Handle '/start' and '/help'
 @bot.message_handler(commands=['help', 'start'])
 def send_welcome(message):
-    bot.reply_to(message, (u"Утро."))
+    bot.send_message(message, (u"Утро!"))
 
 
 # Handle all other messages
 @bot.message_handler(func=lambda message: False, content_types=['text'])
 def echo_message(message):
-    bot.reply_to(message, message.text)
+    bot.send_message(message.chat.id, message.text)
 
 
 # Remove webhook, it fails sometimes the set if there is a previous webhook
