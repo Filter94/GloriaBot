@@ -8,6 +8,9 @@ import flask
 import telebot
 import logging
 
+import handlers
+import resolvers
+
 logging.basicConfig(filename='loggers.log', level=logging.DEBUG)
 
 api_token_file = open('api_token', 'r')
