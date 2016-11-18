@@ -1,1 +1,5 @@
-curl -v -k -X POST -H "Content-Type: application/json" -H "Cache-Control: no-cache"  -d '{"ok":true,"result":{"message_id":912,"from":{"id":291828319,"first_name":"\u0413\u043b\u043e\u0440\u0438\u044f","username":"UleyChatGloriaBot"},"chat":{"id":264862793,"first_name":"Roman","last_name":"Vaseev","type":"private"},"date":1479439923,"text":"\u0423\u0442\u0440\u043e."}}' "https://0.0.0.0:8443/291828319:AAGcQ4TjpwzApx9ag1rBHQsFvuWasmMHvE4/"
+curl -v -k -X POST -H "Content-Type: application/json" -H "Cache-Control: no-cache"  -d '{"update_id":807408547,
+"message":{
+"message_id":915,"from":{"id":291828319,"first_name":"\u0413\u043b\u043e\u0440\u0438\u044f","username":"UleyChatGloriaBot"},
+"chat":{"id":264862793,"first_name":"Roman","last_name":"Vaseev","type":"private"},
+"date":1479440178,"text":"\u0414\u043E\u0431\u0440\u043E\u0435 \u0443\u0442\u0440\u043E."}}' "https://0.0.0.0:8443/291828319:AAGcQ4TjpwzApx9ag1rBHQsFvuWasmMHvE4/"
