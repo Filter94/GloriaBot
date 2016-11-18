@@ -70,10 +70,10 @@ def ban_resolver(message):
 
 
 def morning_resolver(message):
-    return resolve_regex_with_probability(ur'(?iu)(.{0,6}прив.{0,20})|(.{0,6}утро.{0,20})', 0.9, message.text)
+    return resolve_regex_with_probability(ur'(?iu)(.{0,6}|добр{0,6})(прив|утр[оа]).{0,20}', 0.9, message.text)
 
 
 def night_resolver(message):
-    return resolve_regex_with_probability(ur'(?iu).{0,6}ночи.{0,20}', 0.9, message.text)
+    return resolve_regex_with_probability(ur'(?iu)(.{0,6}|добр{0,6})ночи.{0,20}', 0.9, message.text)
 
 

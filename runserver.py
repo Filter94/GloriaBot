@@ -14,7 +14,7 @@ handlers.init()
 logging.basicConfig(filename='loggers.log', level=logging.DEBUG)
 
 logger = telebot.logger
-telebot.logger.setLevel(logging.INFO)
+telebot.logger.setLevel(logging.DEBUG)
 
 app = flask.Flask(__name__)
 
