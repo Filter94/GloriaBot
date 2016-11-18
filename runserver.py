@@ -29,8 +29,8 @@ def send_welcome(message):
 def webhook():
     if flask.request.headers.get('content-type') == 'application/json':
         json_string = flask.request.get_data().encode('utf-8')
+        telebot.logger.debug(flask.request.get_data())
         update = telebot.types.Update.de_json(json_string)
-        telebot.logger.debug(json_string)
         bot.process_new_messages([update.message])
         return ''
     else:
