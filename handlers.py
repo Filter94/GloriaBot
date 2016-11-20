@@ -1,35 +1,34 @@
 # coding=utf-8
 from bot import bot
-from resolvers import kalinin_resolver, albert_resolver, tema_resolver, geva_resolver, stas_resolver, ban_resolver, \
-    net_resolver, debug_resolver, zaebal_resolver, morning_resolver, night_resolver
+import resolvers
 
 
-@bot.message_handler(func=kalinin_resolver)
+@bot.message_handler(func=resolvers.kalinin_resolver)
 def kalinin_pidor(message):
     bot.send_message(message.chat.id, u'Калинин пидор')
 
 
-@bot.message_handler(func=albert_resolver)
+@bot.message_handler(func=resolvers.albert_resolver)
 def albert_pidor(message):
     bot.send_message(message.chat.id, u'Альберт тоже пидор')
 
 
-@bot.message_handler(func=tema_resolver)
+@bot.message_handler(func=resolvers.tema_resolver)
 def tema_pidor(message):
     bot.send_message(message.chat.id, u'Да и Тема пидор')
 
 
-@bot.message_handler(func=geva_resolver)
+@bot.message_handler(func=resolvers.geva_resolver)
 def geva_pidor(message):
     bot.send_message(message.chat.id, u'Гева дизайнер')
 
 
-@bot.message_handler(func=stas_resolver)
+@bot.message_handler(func=resolvers.stas_resolver)
 def stas_pidor(message):
     bot.send_message(message.chat.id, u'Стас по дефолту пидор')
 
 
-@bot.message_handler(func=ban_resolver)
+@bot.message_handler(func=resolvers.ban_resolver)
 def ban(message):
     bot.send_message(message.chat.id, u'Бан')
     try:
@@ -38,12 +37,12 @@ def ban(message):
         pass
 
 
-@bot.message_handler(func=net_resolver)
+@bot.message_handler(func=resolvers.net_resolver)
 def net(message):
     bot.send_message(message.chat.id, u'ПИДОРА ОТВЕТ')
 
 
-@bot.message_handler(func=debug_resolver)
+@bot.message_handler(func=resolvers.debug_resolver)
 def debug(message):
     bot.send_message(message.chat.id, u'Стас по дефолту пидор')
 
@@ -61,7 +60,7 @@ nicknames_dict = {
 }
 
 
-@bot.message_handler(func=zaebal_resolver)
+@bot.message_handler(func=resolvers.zaebal_resolver)
 def zaebal(message):
     try:
         name = nicknames_dict.get(message.from_user.last_name, message.from_user.first_name)
@@ -74,12 +73,12 @@ def zaebal(message):
             pass
 
 
-@bot.message_handler(func=morning_resolver)
+@bot.message_handler(func=resolvers.morning_resolver)
 def morning(message):
     bot.send_message(message.chat.id, u'Утро.')
 
 
-@bot.message_handler(func=night_resolver)
+@bot.message_handler(func=resolvers.night_resolver)
 def night(message):
     bot.send_message(message.chat.id, u'Ночи.')
 
