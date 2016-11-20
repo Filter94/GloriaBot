@@ -7,7 +7,7 @@ import logging
 
 import handlers
 from bot import bot
-from const import WEBHOOK_URL_PATH, WEBHOOK_URL_BASE, WEBHOOK_SSL_CERT, WEBHOOK_LISTEN, WEBHOOK_PORT, WEBHOOK_SSL_PRIV
+import const
 
 handlers.init()
 
@@ -25,7 +25,7 @@ def send_welcome(message):
     bot.reply_to(message, u"Утро.")
 
 
-@app.route(WEBHOOK_URL_PATH, methods=['POST'])
+@app.route(const.WEBHOOK_URL_PATH, methods=['POST'])
 def webhook():
     if flask.request.headers.get('content-type') == 'application/json':
         json_string = flask.request.get_data().encode('utf-8')
@@ -47,9 +47,9 @@ if __name__ == '__main__':
     # Remove webhook, it fails sometimes the set if there is a previous webhook
     bot.remove_webhook()
     # Set webhook
-    bot.set_webhook(url=WEBHOOK_URL_BASE + WEBHOOK_URL_PATH,
-                    certificate=open(WEBHOOK_SSL_CERT, 'r'))
+    bot.set_webhook(url=const.WEBHOOK_URL_BASE + const.WEBHOOK_URL_PATH,
+                    certificate=open(const.WEBHOOK_SSL_CERT, 'r'))
     # Start flask server
-    app.run(host=WEBHOOK_LISTEN,
-            port=WEBHOOK_PORT,
-            ssl_context=(WEBHOOK_SSL_CERT, WEBHOOK_SSL_PRIV))
+    app.run(host=const.WEBHOOK_LISTEN,
+            port=const.WEBHOOK_PORT,
+            ssl_context=(const.WEBHOOK_SSL_CERT, const.WEBHOOK_SSL_PRIV))
