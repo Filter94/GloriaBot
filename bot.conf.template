@@ -1,7 +1,7 @@
 server {
     listen              8443;
     location /*TOKEN*/ {
-        proxy_pass https://127.0.0.1:5000/;
+        proxy_pass http://127.0.0.1:5000/;
     }
 
     ssl    on;
