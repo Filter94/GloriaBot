@@ -1,10 +1,10 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-import flask
-import telebot
 import logging
+import flask
 
 import handlers
+import telebot
 from bot import bot
 
 logging.basicConfig(filename='loggers.log', level=logging.DEBUG)

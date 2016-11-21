@@ -1,6 +1,6 @@
 # coding=utf-8
-from bot import bot
 import resolvers
+from bot import bot
 
 
 @bot.message_handler(func=resolvers.kalinin_resolver)
