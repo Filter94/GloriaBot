@@ -41,3 +41,5 @@ api_token
 *.pfx
 telegram_bot/*
 deploy.sh
+bot.conf
+curl_test
