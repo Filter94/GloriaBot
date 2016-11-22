@@ -14,9 +14,6 @@ class ZaebalHandler(RegexProbabilityHandler):
     _TIMES_WROTE = 'times_wrote'
     _LAST_USER_ID = 'last_user_id'
     _last_10_by_chats = {}
-    _default_dict = {
-        _LAST_USER_ID: None, _TIMES_WROTE: None,
-    }
 
     def __init__(self,
                  pattern,
@@ -48,7 +45,9 @@ class ZaebalHandler(RegexProbabilityHandler):
         if super(ZaebalHandler, self).check_update(update):
             chat_id = update.message.chat_id
             user_id = update.message.from_user.id
-            chat_last_msgs_by_user = self._last_10_by_chats.get(chat_id, self._default_dict)
+            chat_last_msgs_by_user = self._last_10_by_chats.get(chat_id, {
+                self._LAST_USER_ID: None, self._TIMES_WROTE: None,
+            })
             if chat_last_msgs_by_user[self._LAST_USER_ID] != user_id:
                 chat_last_msgs_by_user[self._LAST_USER_ID] = user_id
                 chat_last_msgs_by_user[self._TIMES_WROTE] = 1
