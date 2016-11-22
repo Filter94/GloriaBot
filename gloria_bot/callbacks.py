@@ -7,7 +7,7 @@ logger = logging.getLogger(__name__)
 
 
 def exceptions_handler(type, value, tb):
-    logger.exception("Uncaught exception: {0}".format(str(value)))
+    print ("Uncaught exception: {0}".format(str(value)))
 
 
 sys.excepthook = exceptions_handler
@@ -93,5 +93,4 @@ def sex(bot, update):
 
 
 def start(bot, update):
-    logger.debug("Came into start handler.")
     update.message.reply_text(u'Утро.')
