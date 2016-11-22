@@ -57,5 +57,7 @@ class ZaebalHandler(RegexProbabilityHandler):
             if chat_last_msgs_by_user[self._TIMES_WROTE] >= self.zaebal_count:
                 chat_last_msgs_by_user[self._TIMES_WROTE] = self.cooldown_count
                 return true_with_probability(self.probability)
+            else:
+                return False
         else:
             return False
