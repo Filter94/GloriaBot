@@ -46,7 +46,7 @@ class ZaebalHandler(RegexProbabilityHandler):
 
     def check_update(self, update):
         if super(ZaebalHandler, self).check_update(update):
-            chat_id = update.message.chat.id
+            chat_id = update.message.chat_id
             user_id = update.message.from_user.id
             chat_last_msgs_by_user = self._last_10_by_chats.get(chat_id, self._default_dict)
             if chat_last_msgs_by_user[self._LAST_USER_ID] != user_id:
