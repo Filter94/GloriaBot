@@ -7,7 +7,7 @@ logger = logging.getLogger(__name__)
 
 
 def exceptions_handler(type, value, tb):
-    print ("Uncaught exception: {0}".format(str(value)))
+    logger.debug("Uncaught exception: {0}".format(str(value)))
 
 
 sys.excepthook = exceptions_handler
