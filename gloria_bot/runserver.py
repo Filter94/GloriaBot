@@ -2,39 +2,51 @@
 # -*- coding: utf-8 -*-
 import logging
 import flask
+import json
+from telegram import Update
+from telegram.ext import CommandHandler
 
-import handlers
-import telebot
-from bot import bot
+from gloria_bot import callbacks
+from gloria_bot.handlers.regex_probability_handler import RegexProbabilityHandler
+from gloria_bot.handlers.zaebal_handler import ZaebalHandler
+from gloria_bot.singletons import dp, app, updater, bot
 
-logging.basicConfig(filename='loggers.log', level=logging.DEBUG)
+UTF_8 = "utf-8"
 
-logger = telebot.logger
-telebot.logger.setLevel(logging.DEBUG)
-
-handlers.init()
-
-app = flask.Flask(__name__)
-
-
-# Handle '/start' and '/help'
-@bot.message_handler(commands=['help', 'start'])
-def send_welcome(message):
-    bot.reply_to(message, u"Утро.")
+logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+                    filename='loggers.log', level=logging.DEBUG)
+logger = logging.getLogger(__name__)
 
 
 @app.route('/', methods=['POST'])
 def webhook():
     if flask.request.headers.get('content-type') == 'application/json':
-        json_string = flask.request.get_data().encode('utf-8')
-        telebot.logger.debug(flask.request.get_data())
-        update = telebot.types.Update.de_json(json_string)
-        bot.process_new_messages([update.message])
+        json_string = flask.request.get_data().encode(UTF_8)
+        logger.debug(flask.request.get_data())
+        update_dict = json.loads(json_string, encoding=UTF_8)
+        update = Update.de_json(update_dict, bot)
+        updater.dispatcher.process_update(update)
         return ''
     else:
         flask.abort(403)
 
 
 if __name__ == '__main__':
+    # add all handlers
+    dp.add_handler(CommandHandler('start', callbacks.start))
+    dp.add_handler(ZaebalHandler(ur'.*', callbacks.zaebal, 0.9))
+    dp.add_handler(RegexProbabilityHandler(ur'(?iu).*калинин.*', callbacks.kalinin_pidor, 0.5))
+    dp.add_handler(RegexProbabilityHandler(ur'(?iu).*нет[!?.)(]*$', callbacks.net, 0.7))
+    dp.add_handler(RegexProbabilityHandler(ur'(?iu).*альберт.*', callbacks.albert_pidor, 0.5))
+    dp.add_handler(RegexProbabilityHandler(ur'(?iu).*(тема|тёма|артем).*', callbacks.tema_pidor, 0.5))
+    dp.add_handler(RegexProbabilityHandler(ur'(?iu).*(гева|геворг|геворк).*', callbacks.geva_pidor, 0.5))
+    dp.add_handler(RegexProbabilityHandler(ur'(?iu).*(стас|пидорас|пидор).*', callbacks.stas_pidor, 0.5))
+    dp.add_handler(RegexProbabilityHandler(ur'debug', callbacks.debug))
+    dp.add_handler(RegexProbabilityHandler(ur'(?iu).*(на ?хуй|в пизду|впизду),? глория.*', callbacks.ban, 0.9))
+    dp.add_handler(RegexProbabilityHandler(ur'(?iu)(.{0,6}|добр{0,6})\s?(прив|утр[оа]).{0,20}', callbacks.morning, 0.9))
+    dp.add_handler(RegexProbabilityHandler(ur'(?iu)(.{0,10}|добр{0,10})\s?ночи.{0,20}', callbacks.night, 0.9))
+    dp.add_handler(RegexProbabilityHandler(ur'(?iu).*(трахать|ебать|секс).*', callbacks.sex, 0.9))
+    # log all errors
+    dp.add_error_handler(callbacks.error)
     # Start flask server
     app.run()
