@@ -1,7 +1,16 @@
 # coding=utf-8
 import logging
 
+import sys
+
 logger = logging.getLogger(__name__)
+
+
+def exceptions_handler(type, value, tb):
+    logger.exception("Uncaught exception: {0}".format(str(value)))
+
+
+sys.excepthook = exceptions_handler
 
 
 def kalinin_pidor(bot, update):
@@ -85,3 +94,4 @@ def sex(bot, update):
 
 def start(bot, update):
     update.message.reply_text(u'Утро.')
+    raise Exception("asd")
