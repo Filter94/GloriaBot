@@ -26,6 +26,7 @@ def webhook():
         update_dict = json.loads(json_string, encoding=UTF_8)
         update = Update.de_json(update_dict, bot)
         updater.dispatcher.process_update(update)
+        logger.debug("Update is processed.")
         return ''
     else:
         flask.abort(403)

@@ -93,5 +93,5 @@ def sex(bot, update):
 
 
 def start(bot, update):
+    logger.debug("Came into start handler.")
     update.message.reply_text(u'Утро.')
-    raise Exception("asd")
