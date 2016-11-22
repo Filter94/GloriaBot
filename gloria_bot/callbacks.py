@@ -14,27 +14,27 @@ sys.excepthook = exceptions_handler
 
 
 def kalinin_pidor(bot, update):
-    update.message.reply_text(u'Калинин пидор')
+    bot.send_message(update.chat_id, u'Калинин пидор')
 
 
 def albert_pidor(bot, update):
-    update.message.reply_text(u'Альберт тоже пидор')
+    bot.send_message(update.chat_id, u'Альберт тоже пидор')
 
 
 def tema_pidor(bot, update):
-    update.message.reply_text(u'Да и Тема пидор')
+    bot.send_message(update.chat_id, u'Да и Тема пидор')
 
 
 def geva_pidor(bot, update):
-    update.message.reply_text(u'Гева дизайнер')
+    bot.send_message(update.chat_id, u'Гева дизайнер')
 
 
 def stas_pidor(bot, update):
-    update.message.reply_text(u'Стас по дефолту пидор')
+    bot.send_message(update.chat_id, u'Стас по дефолту пидор')
 
 
 def ban(bot, update):
-    update.message.reply_text(u'Бан')
+    bot.send_message(update.chat_id, u'Бан')
     try:
         bot.kick_chat_member(update.chat_id, update.message.user.id)
     except Exception:
@@ -47,7 +47,7 @@ def net(bot, update):
 
 
 def debug(bot, update):
-    update.message.reply_text(u'Стас по дефолту пидор')
+    bot.send_message(update.chat_id, u'Стас по дефолту пидор')
 
 
 def error(bot, update, error):
@@ -70,7 +70,7 @@ nicknames_dict = {
 def zaebal(bot, update):
     try:
         name = nicknames_dict.get(update.message.from_user.last_name, update.message.from_user.first_name)
-        update.message.reply_text(u'%s, как ты заебал!(' % name)
+        bot.send_message(update.chat_id, u'%s, как ты заебал!(' % name)
     except Exception as e:
         print(e.message)
         try:
@@ -80,11 +80,11 @@ def zaebal(bot, update):
 
 
 def morning(bot, update):
-    update.message.reply_text(u'Утро.')
+    bot.send_message(update.chat_id, u'Утро.')
 
 
 def night(bot, update):
-    update.message.reply_text(u'Ночи.')
+    bot.send_message(update.chat_id, u'Ночи.')
 
 
 def sex(bot, update):
@@ -93,4 +93,4 @@ def sex(bot, update):
 
 
 def start(bot, update):
-    update.message.reply_text(u'Утро.')
+    bot.send_message(update.chat_id, u'Утро.')
