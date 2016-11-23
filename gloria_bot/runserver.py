@@ -48,6 +48,10 @@ dp.add_handler(RegexProbabilityHandler(ur'(?iu).*(трахать|ебать|се
 # log all errors
 dp.add_error_handler(callbacks.error)
 
+# Open tcp connection to avoid poor performance on the very first query
+bot_user = bot.getMe()
+assert bot_user is not None
+
 if __name__ == '__main__':
     # Start flask server
     app.run()
