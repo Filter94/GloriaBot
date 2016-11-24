@@ -13,9 +13,9 @@ def init_handlers():
     statement_start = u"([ .!?)(]|^)"
     statement_end = u"([ $.!?)(]|$)"
     statement_delimeter = statement_end + u"*|" + statement_start + u"*"
-    eat_words = [u"еда+", u"(по)?ку+шать", u"(по)?ку+шаю", u"(по)?ку+шал",
-                 statement_start + u"(по)?е+м" + statement_end, u"(по)?ха+ваю", u"(по)?ха+вать", u"(по)?ха+вал",
-                 u"(по)?е+сть", statement_start + u"(по)?е+л" + statement_end, u"вку+сн", u"ня+м", u"ня+мка+"]
+    eat_words = [u"еда+", u"(по)?ку+шать", u"(по)?ку+шаю", u"(по)?ку+шал(а)?",
+                 statement_start + u"(по)?е+м" + statement_end, u"(по)?ха+ваю", u"(по)?ха+вать", u"(по)?ха+вал(а)?",
+                 u"(по)?е+сть", statement_start + u"(по)?е+л(а)?" + statement_end, u"вку+сн", u"ня+м", u"ня+мка+"]
     eat_choice = statement_start + statement_delimeter.join(eat_words) + statement_end
 
     dp.add_handler(CommandHandler('start', callbacks.start))
