@@ -2,6 +2,7 @@
 import logging
 
 import sys
+import random
 
 from gloria_bot.youtube_search import youtube_search
 
@@ -105,11 +106,75 @@ def eat(bot, update):
     bot.send_document(update.message.chat_id, eat_gif_file_id)
 
 
-def search_video_about(bot, update, groupdict={}):
-    search_result = youtube_search(groupdict['keyword'])
+def get_first_video_or_say(keyword, reply, bot, update):
+    search_result = youtube_search(keyword)
     if search_result:
-        video_id = search_result[0][u'id'][u'videoId']
-        bot.send_message(update.message.chat_id, YOUTUBE_LINK % video_id)
+        try:
+            video_id = search_result[0]
+            bot.send_message(update.message.chat_id, YOUTUBE_LINK % video_id)
+        except Exception as e:
+            logger.info("Can't handle %s" % keyword)
+            logger.info("Youtube search result: %s" % search_result)
     else:
-        bot.send_message(update.message.chat_id, u'Не бывает про это видео.')
+        bot.send_message(update.message.chat_id, reply)
+
+
+def get_some_video_or_say(keyword, reply, bot, update):
+    search_result = youtube_search(keyword)
+    if search_result:
+        try:
+            video_id = random.choice(search_result)
+            bot.send_message(update.message.chat_id, YOUTUBE_LINK % video_id)
+        except Exception as e:
+            logger.info("Can't handle %s" % keyword)
+            logger.info("Youtube search result: %s" % search_result)
+    else:
+        bot.send_message(update.message.chat_id, reply)
+
+
+VIDEO_TYPE_RESPONSES = {
+    u"видео": u"Какое видео, блять?",
+    u"ролик": u"Какой ролик, блять?",
+    u"видос": u"Какой видос, блять?"
+}
+
+
+def search_video_about(bot, update, groupdict=None):
+    if groupdict is None:
+        groupdict = dict()
+    keyword = groupdict['keyword']
+    if keyword == '':
+        bot.send_message(update.message.chat_id, VIDEO_TYPE_RESPONSES[groupdict['video_type']])
+        return
+    get_first_video_or_say(keyword, u'Не бывает про это видео.', bot, update)
+
+
+def search_video(bot, update, groupdict=None):
+    if groupdict is None:
+        groupdict = dict()
+    keyword = groupdict['keyword']
+    if keyword == '':
+        bot.send_message(update.message.chat_id, VIDEO_TYPE_RESPONSES[groupdict['video_type']])
+        return
+    get_first_video_or_say(keyword, u'Не бывает видео "%s".' % keyword, bot, update)
+
+
+def search_some_video_about(bot, update, groupdict=None):
+    if groupdict is None:
+        groupdict = dict()
+    keyword = groupdict['keyword']
+    if keyword == '':
+        bot.send_message(update.message.chat_id, VIDEO_TYPE_RESPONSES[groupdict['video_type']])
+        return
+    get_some_video_or_say(keyword, u'Не бывает про это никаких видео.', bot, update)
+
+
+def search_some_video(bot, update, groupdict=None):
+    if groupdict is None:
+        groupdict = dict()
+    keyword = groupdict['keyword']
+    if keyword == '':
+        bot.send_message(update.message.chat_id, VIDEO_TYPE_RESPONSES[groupdict['video_type']])
+        return
+    get_some_video_or_say(keyword, u'Не бывает никаких видео "%s".' % keyword, bot, update)
 

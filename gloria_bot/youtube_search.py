@@ -3,7 +3,8 @@ from apiclient.discovery import build
 
 YOUTUBE_API_SERVICE_NAME = "youtube"
 YOUTUBE_API_VERSION = "v3"
-MAX_RESULTS = 10
+MAX_QUERY_RESULTS = 50
+MAX_VIDEOS_RESULTS = 10
 
 DEVELOPER_KEY = ''
 with file('youtube_api_key', 'r') as api_token_file:
@@ -20,13 +21,12 @@ def youtube_search(keywords):
     search_response = youtube.search().list(
         q=keywords,
         part="id,snippet",
-        maxResults=MAX_RESULTS
+        maxResults=MAX_QUERY_RESULTS
     ).execute()
-
-    videos = []
-    channels = []
-    playlists = []
 
     # Add each result to the appropriate list, and then display the lists of
     # matching videos, channels, and playlists.
-    return search_response.get("items", [])
+    videos_only_entities = filter(lambda entry: entry["id"]["kind"] == "youtube#video",
+                                  search_response.get("items", []))
+    videos = map(lambda x: x["id"]["videoId"], videos_only_entities)
+    return videos[:MAX_VIDEOS_RESULTS]
