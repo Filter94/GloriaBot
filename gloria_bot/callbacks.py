@@ -94,3 +94,9 @@ def sex(bot, update):
 
 def start(bot, update):
     bot.send_message(update.message.chat_id, u'Утро.')
+
+
+def eat(bot, update):
+    eat_gif_file_id = "BQADBAADLwMAAg0eZAclqTS6xDhUVQI"
+    bot.send_document(update.message.chat_id, eat_gif_file_id)
+
