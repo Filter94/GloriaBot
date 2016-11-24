@@ -45,8 +45,8 @@ dp.add_handler(RegexProbabilityHandler(ur'(?iu).*(на ?хуй|в пизду|в�
 dp.add_handler(RegexProbabilityHandler(ur'(?iu)(.{0,6}|добр{0,6})\s?(прив|утр[оа]).{0,20}', callbacks.morning, 0.9))
 dp.add_handler(RegexProbabilityHandler(ur'(?iu)(.{0,10}|добр{0,10})\s?ночи.{0,20}', callbacks.night, 0.9))
 dp.add_handler(RegexProbabilityHandler(ur'(?iu).*(трахать|ебать|секс).*', callbacks.sex, 0.9))
-dp.add_handler(RegexProbabilityHandler(ur'(?iu).*( еда+| ку+шать | ку+шаю| ку+шал | ем |'
-                                       ur' ха+ваю | ха+вать | ха+вал | пое+сть | пое+л | пое+м | вку+сн | ня+м ).*',
+dp.add_handler(RegexProbabilityHandler(ur'(?iu).*( еда+| (по)?ку+шать | (по)?ку+шаю| (по)?ку+шал | (по)?е+м |'
+                                       ur' (по)?ха+ваю | (по)?ха+вать | (по)?ха+вал | (по)?е+сть | (по)?е+л | вку+сн | ня+м ).*',
                                        callbacks.eat, 0.9))
 # log all errors
 dp.add_error_handler(callbacks.error)
