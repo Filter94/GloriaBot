@@ -3,6 +3,10 @@ import logging
 
 import sys
 
+from gloria_bot.youtube_search import youtube_search
+
+YOUTUBE_LINK = 'youtube.com/watch?v=%s'
+
 logger = logging.getLogger(__name__)
 
 
@@ -99,4 +103,13 @@ def start(bot, update):
 def eat(bot, update):
     eat_gif_file_id = "BQADBAADLwMAAg0eZAclqTS6xDhUVQI"
     bot.send_document(update.message.chat_id, eat_gif_file_id)
+
+
+def search_video_about(bot, update, groupdict={}):
+    search_result = youtube_search(groupdict['keyword'])
+    if search_result:
+        video_id = search_result[0][u'id'][u'videoId']
+        bot.send_message(update.message.chat_id, YOUTUBE_LINK % video_id)
+    else:
+        bot.send_message(update.message.chat_id, u'Не бывает про это видео.')
 

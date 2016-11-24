@@ -44,3 +44,4 @@ telegram_bot/*
 deploy.sh
 bot.conf
 curl_test
+youtube_api_key

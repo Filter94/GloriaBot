@@ -33,6 +33,7 @@ def init_handlers():
     dp.add_handler(RegexProbabilityHandler(ur'(?iu).*(трахать|ебать|секс).*', callbacks.sex, 0.9))
     dp.add_handler(RegexProbabilityHandler(ur'(?iu).*(%s).*' % eat_choice,
                                            callbacks.eat, 0.9))
-
+    dp.add_handler(RegexProbabilityHandler(ur'(?iu).*глория,? покажи (видос|видео|ролик) про (?P<keyword>.+)',
+                                           callbacks.search_video_about, 1, pass_groupdict=True))
     # log all errors
     dp.add_error_handler(callbacks.error)
