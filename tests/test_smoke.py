@@ -18,4 +18,8 @@ class TestSmoke(GloriaTest):
     @patch('telegram.bot.Bot.send_message', new_callable=Mock())
     def test_usual_message(self, send_message_mock):
         self.perform_test_with_message(u'Случайное сообщение', times=6)
-        send_message_mock.assert_not_called()
+        try:
+            send_message_mock.assert_not_called()
+        except AssertionError as ae:
+            print send_message_mock.all_calls
+            raise ae
