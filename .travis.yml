@@ -6,5 +6,3 @@ install:
   - pip install -r requirements.txt
 # command to run tests
 script: python -m unittest discover tests
-after_sucess:
-  - CODECLIMATE_REPO_TOKEN=<token> codeclimate-test-reporter
