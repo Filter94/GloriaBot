@@ -1,12 +1,15 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 # add all handlers
+import logging
 from telegram.ext import CommandHandler
 
 from gloria_bot import callbacks
 from gloria_bot.handlers.regex_probability_handler import RegexProbabilityHandler
 from gloria_bot.handlers.zaebal_handler import ZaebalHandler
 from gloria_bot.singletons import dp
+
+logger = logging.getLogger(__name__)
 
 
 def init_handlers():
@@ -47,3 +50,4 @@ def init_handlers():
         callbacks.search_some_video, 1, pass_groupdict=True))
     # log all errors
     dp.add_error_handler(callbacks.error)
+    logger.debug(u"Handlers size: %s" % len(dp.handlers))

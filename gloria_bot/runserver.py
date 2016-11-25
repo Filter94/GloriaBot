@@ -6,7 +6,7 @@ import json
 from telegram import Update
 
 from gloria_bot.handlers_init import init_handlers
-from gloria_bot.singletons import app, updater, bot
+from gloria_bot.singletons import app, updater, bot, request
 
 UTF_8 = "utf-8"
 
@@ -22,6 +22,7 @@ def webhook():
         logger.debug(flask.request.get_data())
         update_dict = json.loads(json_string, encoding=UTF_8)
         update = Update.de_json(update_dict, bot)
+        logger.debug("Connection pool size: %s" % len(request.__dict__['_con_pool'].pools.__dict__['_container']))
         logger.debug("Update %s processing started." % update.update_id)
         updater.dispatcher.process_update(update)
         logger.debug("Update %s is processed." % update.update_id)
@@ -32,7 +33,6 @@ def webhook():
 # Open tcp connection to avoid poor performance on the very first query
 # bot_user = bot.getMe()
 # assert bot_user is not None
-
 init_handlers()
 
 if __name__ == '__main__':
