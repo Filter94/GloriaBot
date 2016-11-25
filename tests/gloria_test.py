@@ -3,6 +3,8 @@ from unittest import TestCase
 from mock import patch
 import json
 
+from gloria_bot.handlers.zaebal_handler import ZaebalHandler
+
 patch('telegram.bot.Bot.get_me', return_value="Me").start()
 patch('telegram.bot.Bot.getMe', return_value="Me").start()
 
@@ -33,6 +35,7 @@ class GloriaTest(TestCase):
 
     def setUp(self):
         self.app = runserver.app.test_client()
+        ZaebalHandler.last_10_by_chats = dict()
 
     def send_json(self, dict):
         return self.app.post(self.API_PATH, data=json.dumps(dict),

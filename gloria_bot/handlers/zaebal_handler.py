@@ -13,7 +13,7 @@ class ZaebalHandler(RegexProbabilityHandler):
     DEFAULT_PROBABILITY = 1
     _TIMES_WROTE = 'times_wrote'
     _LAST_USER_ID = 'last_user_id'
-    _last_10_by_chats = {}
+    last_10_by_chats = {}
 
     def __init__(self,
                  pattern,
@@ -45,13 +45,13 @@ class ZaebalHandler(RegexProbabilityHandler):
         if super(ZaebalHandler, self).check_update(update):
             chat_id = update.message.chat_id
             user_id = update.message.from_user.id
-            chat_last_msgs_by_user = self._last_10_by_chats.get(chat_id, {
+            chat_last_msgs_by_user = self.last_10_by_chats.get(chat_id, {
                 self._LAST_USER_ID: None, self._TIMES_WROTE: None,
             })
             if chat_last_msgs_by_user[self._LAST_USER_ID] != user_id:
                 chat_last_msgs_by_user[self._LAST_USER_ID] = user_id
                 chat_last_msgs_by_user[self._TIMES_WROTE] = 1
-                self._last_10_by_chats[chat_id] = chat_last_msgs_by_user
+                self.last_10_by_chats[chat_id] = chat_last_msgs_by_user
             else:
                 chat_last_msgs_by_user[self._TIMES_WROTE] += 1
             if chat_last_msgs_by_user[self._TIMES_WROTE] >= self.zaebal_count:
