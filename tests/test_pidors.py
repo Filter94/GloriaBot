@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 from mock import patch, call
 
-# No network interactions
 from gloria_bot.singletons import bot
 from tests.gloria_test import GloriaTest
 

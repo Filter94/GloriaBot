@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 from mock import patch, Mock
 
-# No network interactions
 from gloria_bot.singletons import bot
 from tests.gloria_test import GloriaTest
 
@@ -21,5 +20,5 @@ class TestSmoke(GloriaTest):
         try:
             send_message_mock.assert_not_called()
         except AssertionError as ae:
-            print send_message_mock.all_calls
+            print send_message_mock.call_args_list
             raise ae
