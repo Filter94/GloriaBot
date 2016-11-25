@@ -7,16 +7,6 @@ from tests.gloria_test import GloriaTest
 
 
 class TestPidors(GloriaTest):
-    REPEAT = 20
-
-    def perform_test_with_message(self, message):
-        kalinin_pidor_dict = dict(self.SIMPLE_PRIVATE_MESSAGE)
-        kalinin_pidor_dict['message']['text'] = message
-        for i in range(self.REPEAT):
-            # Probability of test failing is 1/2^10
-            response = self.send_json(self.SIMPLE_PRIVATE_MESSAGE)
-            self.assertEqual(response.status_code, 200)
-
     @patch('telegram.bot.Bot.send_message', autospec=True)
     def test_kalinin(self, send_message_mock):
         self.perform_test_with_message(u'Калинин')

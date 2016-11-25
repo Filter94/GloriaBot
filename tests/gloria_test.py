@@ -37,3 +37,13 @@ class GloriaTest(TestCase):
     def send_json(self, dict):
         return self.app.post(self.API_PATH, data=json.dumps(dict),
                              content_type='application/json')
+
+    REPEAT = 15
+
+    def perform_test_with_message(self, message, times=REPEAT):
+        update_dict = dict(self.SIMPLE_PRIVATE_MESSAGE)
+        update_dict['message']['text'] = message
+        for i in range(times):
+            # Probability of test failing is 1/2^10
+            response = self.send_json(self.SIMPLE_PRIVATE_MESSAGE)
+            self.assertEqual(response.status_code, 200)
