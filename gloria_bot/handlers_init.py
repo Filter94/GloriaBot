@@ -50,4 +50,4 @@ def init_handlers():
         callbacks.search_some_video, 1, pass_groupdict=True))
     # log all errors
     dp.add_error_handler(callbacks.error)
-    logger.debug(u"Handlers size: %s" % len(dp.handlers))
+    logger.debug(u"Handlers size: %s" % len(dp.handlers[0]))
