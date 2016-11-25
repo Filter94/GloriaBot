@@ -6,10 +6,15 @@ YOUTUBE_API_VERSION = "v3"
 MAX_QUERY_RESULTS = 50
 MAX_VIDEOS_RESULTS = 10
 
-DEVELOPER_KEY = ''
-with file('youtube_api_key', 'r') as api_token_file:
-    DEVELOPER_KEY = api_token_file.readline()
-    api_token_file.close()
+DEVELOPER_KEY = 'youtube_key'
+
+try:
+    with file('youtube_api_key', 'r') as api_token_file:
+        DEVELOPER_KEY = api_token_file.readline()
+        api_token_file.close()
+except IOError as e:
+    # test mode
+    pass
 
 
 def youtube_search(keywords):
