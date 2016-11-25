@@ -1,3 +1,4 @@
+[![Build Status](https://travis-ci.org/Filter94/GloriaBot.svg?branch=master)](https://travis-ci.org/Filter94/GloriaBot)
 # Gloria Bot
 
 Gloria is back!
