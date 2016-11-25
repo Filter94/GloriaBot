@@ -27,7 +27,7 @@ def init_handlers():
     dp.add_handler(RegexProbabilityHandler(ur'(?iu).*калинин.*', callbacks.kalinin_pidor, 0.5))
     dp.add_handler(RegexProbabilityHandler(ur'(?iu).*нет%s*$' % statement_end, callbacks.net, 0.7))
     dp.add_handler(RegexProbabilityHandler(ur'(?iu).*альберт.*', callbacks.albert_pidor, 0.5))
-    dp.add_handler(RegexProbabilityHandler(ur'(?iu).*(тема|тёма|артем).*', callbacks.tema_pidor, 0.5))
+    dp.add_handler(RegexProbabilityHandler(ur'(?iu).*(тема|тёма|артем|).*', callbacks.tema_pidor, 0.5))
     dp.add_handler(RegexProbabilityHandler(ur'(?iu).*(гева|геворг|геворк).*', callbacks.geva_pidor, 0.5))
     dp.add_handler(RegexProbabilityHandler(ur'(?iu).*(стас|пидорас|пидор).*', callbacks.stas_pidor, 0.5))
     dp.add_handler(RegexHandler(ur'debug', callbacks.debug))

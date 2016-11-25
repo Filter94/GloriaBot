@@ -31,7 +31,7 @@ def webhook():
         flask.abort(403)
 
 # Open tcp connection to avoid poor performance on the very first query
-bot_user = bot.getMe()
+bot_user = bot.get_me()
 assert bot_user is not None
 
 init_handlers()
