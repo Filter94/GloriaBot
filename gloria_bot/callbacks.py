@@ -146,7 +146,7 @@ def search_video_about(bot, update, groupdict=None):
     if keyword == '':
         bot.send_message(update.message.chat_id, VIDEO_TYPE_RESPONSES[groupdict['video_type']])
         return
-    get_first_video_or_say(keyword, u'Не бывает про это видео.', bot, update)
+    get_first_video_or_say(keyword, u'Не бывает про %s видео.' % keyword, bot, update)
 
 
 def search_video(bot, update, groupdict=None):
@@ -166,7 +166,7 @@ def search_some_video_about(bot, update, groupdict=None):
     if keyword == '':
         bot.send_message(update.message.chat_id, VIDEO_TYPE_RESPONSES[groupdict['video_type']])
         return
-    get_some_video_or_say(keyword, u'Не бывает про это никаких видео.', bot, update)
+    get_some_video_or_say(keyword, u'Не бывает про %s никаких видео.' % keyword, bot, update)
 
 
 def search_some_video(bot, update, groupdict=None):
