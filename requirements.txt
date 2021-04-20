@@ -12,7 +12,7 @@ MarkupSafe==0.23
 mock==2.0.0
 oauth2client==1.5.2
 pbr==1.10.0
-py==1.4.31
+py==1.10.0
 pyasn1==0.1.9
 pyasn1-modules==0.0.8
 pytest==3.0.4
